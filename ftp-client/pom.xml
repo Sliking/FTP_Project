@@ -11,7 +11,7 @@
   <properties>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  		<mainclass>com.miguelpinto.App</mainclass>
+  		<mainclass>com.miguelpinto.FTP_GUI</mainclass>
   </properties>
   
   <build>
@@ -28,7 +28,7 @@
 		   </execution>
 		 </executions>
 		 <configuration>
-			<mainClass>com.miguelpinto.App </mainClass>
+			<mainClass>com.miguelpinto.FTP_GUI </mainClass>
 			<killAfter>-1</killAfter>
 		  </configuration>
 	</plugin>
