@@ -6,8 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FTP_GUI {
 
@@ -24,8 +28,6 @@ public class FTP_GUI {
 				try {
 					FTP_GUI window = new FTP_GUI();
 					window.frame.setVisible(true);
-					char[] input = passwordField.getPassword();
-					App app = new App(textField.getText(), input);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,6 +52,14 @@ public class FTP_GUI {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Enter");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*String username = textField.getText();
+				char[] _password = passwordField.getPassword();
+				String password = String.copyValueOf(_password);
+				JOptionPane.showMessageDialog(null, password);*/
+			}
+		});
 		btnNewButton.setBounds(111, 192, 232, 80);
 		frame.getContentPane().add(btnNewButton);
 		
