@@ -1,4 +1,4 @@
-package com.miguelpinto;
+package com.miguelpinto.ftp;
 
 import java.io.IOException;
 import java.net.Socket;

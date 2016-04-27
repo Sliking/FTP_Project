@@ -1,16 +1,23 @@
-package com.miguelpinto;
+package com.miguelpinto.ftp.GUI;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
+import com.miguelpinto.ftp.Connectiondb;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class FTP_GUI {
@@ -18,6 +25,7 @@ public class FTP_GUI {
 	private JFrame frame;
 	private static JTextField textField;
 	private static JPasswordField passwordField;
+	Connection connection = null;
 
 	/**
 	 * Launch the application.
@@ -40,6 +48,7 @@ public class FTP_GUI {
 	 */
 	public FTP_GUI() {
 		initialize();
+		connection = Connectiondb.dbconnector();
 	}
 
 	/**
@@ -54,10 +63,47 @@ public class FTP_GUI {
 		JButton btnNewButton = new JButton("Enter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*String username = textField.getText();
+				String username = textField.getText();
 				char[] _password = passwordField.getPassword();
 				String password = String.copyValueOf(_password);
-				JOptionPane.showMessageDialog(null, password);*/
+				
+				String query = "SELECT * FROM Users WHERE username=? and password=?";
+				try {
+					PreparedStatement ps = connection.prepareStatement(query);
+					ps.setString(0, username);
+					ps.setString(1, password);
+					ResultSet rs = ps.executeQuery();
+					
+					int count = 0;
+					
+					while(rs.next()){
+						count = count + 1;
+					}
+					if(count == 1){
+						JOptionPane.showMessageDialog(null, "Logged in");
+					}
+					else if (count >= 1){
+						JOptionPane.showMessageDialog(null, "Duplicate username and password");
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Username and password are incorrect");
+					}
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e);
+				}
+				finally{
+					try {
+						connection.close();
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, e);
+					}
+				}
+				
+				frame.dispose();
+				frame.setVisible(false);
+				LoggedIn logged = new LoggedIn();
+				logged.loggedIn();
+				
 			}
 		});
 		btnNewButton.setBounds(111, 192, 232, 80);
